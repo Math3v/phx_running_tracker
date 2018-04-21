@@ -17,6 +17,7 @@ defmodule PhxRunningTrackerWeb.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
+    resources "/run_logs", RunLogController
   end
 
   # Other scopes may use custom stacks.
