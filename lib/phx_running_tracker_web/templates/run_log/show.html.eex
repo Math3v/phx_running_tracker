@@ -1,0 +1,33 @@
+<h2>Show Run log</h2>
+
+<ul>
+
+  <li>
+    <strong>Distance:</strong>
+    <%= @run_log.distance %>
+  </li>
+
+  <li>
+    <strong>On date:</strong>
+    <%= @run_log.on_date %>
+  </li>
+
+  <li>
+    <strong>At time:</strong>
+    <%= @run_log.at_time %>
+  </li>
+
+  <li>
+    <strong>Duration:</strong>
+    <%= @run_log.duration %>
+  </li>
+
+  <li>
+    <strong>Note:</strong>
+    <%= @run_log.note %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: run_log_path(@conn, :edit, @run_log) %></span>
+<span><%= link "Back", to: run_log_path(@conn, :index) %></span>
