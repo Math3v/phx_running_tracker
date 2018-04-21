@@ -52,6 +52,7 @@ jobs:
 
       - run: mix test
 
+      - run: mix do deps.get, deps.compile
       - run: mix dialyzer
 
       - store_test_results:
