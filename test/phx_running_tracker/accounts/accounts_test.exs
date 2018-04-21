@@ -77,8 +77,8 @@ defmodule PhxRunningTracker.AccountsTest do
       |> round
 
       run_log = run_log_fixture(%{ distance: "10.0", duration: duration })
-      pace = Accounts.get_pace(run_log)
-      assert pace == 5.00
+      pace = Accounts.run_log_pace(run_log)
+      assert pace == 5.0
     end
   end
 end
