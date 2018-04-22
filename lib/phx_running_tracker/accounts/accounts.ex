@@ -103,13 +103,10 @@ defmodule PhxRunningTracker.Accounts do
   end
 
   def run_log_pace(%RunLog{ duration: duration, distance: distance }) do
-    hours = duration
-    |> Timex.Duration.from_milliseconds
-    |> Timex.Duration.to_hours
-    |> Decimal.from_float
-
-    distance
-    |> Decimal.div(hours)
+    duration
+    |> Decimal.div(distance)
     |> Decimal.to_float
+    |> Timex.Duration.from_milliseconds
+    |> Timex.Duration.to_clock
   end
 end
