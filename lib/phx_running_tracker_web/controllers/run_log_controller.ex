@@ -27,7 +27,8 @@ defmodule PhxRunningTrackerWeb.RunLogController do
 
   def show(conn, %{"id" => id}) do
     run_log = Accounts.get_run_log!(id)
-    render(conn, "show.html", run_log: run_log)
+    run_log_pace = Accounts.run_log_pace(run_log)
+    render(conn, "show.html", run_log: run_log, pace: run_log_pace)
   end
 
   def edit(conn, %{"id" => id}) do

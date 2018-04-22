@@ -69,5 +69,27 @@ defmodule PhxRunningTracker.AccountsTest do
       run_log = run_log_fixture()
       assert %Ecto.Changeset{} = Accounts.change_run_log(run_log)
     end
+
+    test "computes basic run_log pace" do
+      duration = 2
+      |> Timex.Duration.from_hours
+      |> Timex.Duration.to_milliseconds
+      |> round
+
+      run_log = run_log_fixture(%{ distance: "10.0", duration: duration })
+      pace = Accounts.run_log_pace(run_log)
+      assert pace == {0, 12, 0, 0}
+    end
+
+    test "computes complex run_log pace" do
+      duration = 2.3
+      |> Timex.Duration.from_hours
+      |> Timex.Duration.to_milliseconds
+      |> round
+
+      run_log = run_log_fixture(%{ distance: "10.0", duration: duration })
+      pace = Accounts.run_log_pace(run_log)
+      assert pace == {0, 13, 48, 0}
+    end
   end
 end

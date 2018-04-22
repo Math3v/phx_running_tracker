@@ -27,6 +27,11 @@
     <%= @run_log.note %>
   </li>
 
+  <li>
+    <strong>Pace:</strong>
+    <%= format_pace(@pace) %>
+  </li>
+
 </ul>
 
 <span><%= link "Edit", to: run_log_path(@conn, :edit, @run_log) %></span>
