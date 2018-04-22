@@ -19,4 +19,21 @@ defmodule PhxRunningTracker.Accounts.RunLog do
     |> cast(attrs, [:distance, :on_date, :at_time, :duration, :note])
     |> validate_required([:distance, :on_date, :at_time, :duration, :note])
   end
+
+  @doc false
+  def duration_to_attrs(%{hours: hours, minutes: minutes, seconds: seconds} = attrs) do
+    duration = {hours, minutes, seconds, 0}
+    |> Timex.Duration.from_clock
+    |> Timex.Duration.to_milliseconds
+    |> round
+
+    attrs
+    |> Map.put(:duration, duration)
+    |> Map.drop([:hours, :minutes, :seconds])
+  end
+
+  # TODO: Shouldn't be used
+  def duration_to_attrs(attrs) do
+    attrs
+  end
 end

@@ -50,6 +50,8 @@ defmodule PhxRunningTracker.Accounts do
 
   """
   def create_run_log(attrs \\ %{}) do
+    attrs = RunLog.duration_to_attrs(attrs)
+
     %RunLog{}
     |> RunLog.changeset(attrs)
     |> Repo.insert()
@@ -68,6 +70,8 @@ defmodule PhxRunningTracker.Accounts do
 
   """
   def update_run_log(%RunLog{} = run_log, attrs) do
+    attrs = RunLog.duration_to_attrs(attrs)
+
     run_log
     |> RunLog.changeset(attrs)
     |> Repo.update()

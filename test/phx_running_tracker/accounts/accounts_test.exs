@@ -6,8 +6,8 @@ defmodule PhxRunningTracker.AccountsTest do
   describe "run_logs" do
     alias PhxRunningTracker.Accounts.RunLog
 
-    @valid_attrs %{at_time: ~T[14:00:00.000000], distance: "120.5", duration: 42, note: "some note", on_date: ~D[2010-04-17]}
-    @update_attrs %{at_time: ~T[15:01:01.000000], distance: "456.7", duration: 43, note: "some updated note", on_date: ~D[2011-05-18]}
+    @valid_attrs %{at_time: ~T[14:00:00.000000], distance: "120.5", hours: 2, minutes: 18, seconds: 34, note: "some note", on_date: ~D[2010-04-17]}
+    @update_attrs %{at_time: ~T[15:01:01.000000], distance: "456.7", hours: 2, minutes: 20, seconds: 44, note: "some updated note", on_date: ~D[2011-05-18]}
     @invalid_attrs %{at_time: nil, distance: nil, duration: nil, note: nil, on_date: nil}
 
     def run_log_fixture(attrs \\ %{}) do
@@ -33,7 +33,7 @@ defmodule PhxRunningTracker.AccountsTest do
       assert {:ok, %RunLog{} = run_log} = Accounts.create_run_log(@valid_attrs)
       assert run_log.at_time == ~T[14:00:00.000000]
       assert run_log.distance == Decimal.new("120.5")
-      assert run_log.duration == 42
+      assert run_log.duration == 8314000
       assert run_log.note == "some note"
       assert run_log.on_date == ~D[2010-04-17]
     end
@@ -48,7 +48,7 @@ defmodule PhxRunningTracker.AccountsTest do
       assert %RunLog{} = run_log
       assert run_log.at_time == ~T[15:01:01.000000]
       assert run_log.distance == Decimal.new("456.7")
-      assert run_log.duration == 43
+      assert run_log.duration == 8444000
       assert run_log.note == "some updated note"
       assert run_log.on_date == ~D[2011-05-18]
     end
@@ -71,23 +71,13 @@ defmodule PhxRunningTracker.AccountsTest do
     end
 
     test "computes basic run_log pace" do
-      duration = 2
-      |> Timex.Duration.from_hours
-      |> Timex.Duration.to_milliseconds
-      |> round
-
-      run_log = run_log_fixture(%{ distance: "10.0", duration: duration })
+      run_log = run_log_fixture(%{ distance: "10.0", hours: 2, minutes: 0, seconds: 0 })
       pace = Accounts.run_log_pace(run_log)
       assert pace == {0, 12, 0, 0}
     end
 
     test "computes complex run_log pace" do
-      duration = 2.3
-      |> Timex.Duration.from_hours
-      |> Timex.Duration.to_milliseconds
-      |> round
-
-      run_log = run_log_fixture(%{ distance: "10.0", duration: duration })
+      run_log = run_log_fixture(%{ distance: "10.0", hours: 2, minutes: 18, seconds: 0 })
       pace = Accounts.run_log_pace(run_log)
       assert pace == {0, 13, 48, 0}
     end
