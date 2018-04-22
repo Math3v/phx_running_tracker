@@ -106,6 +106,7 @@ defmodule PhxRunningTracker.Accounts do
     duration
     |> Decimal.div(distance)
     |> Decimal.to_float
+    |> round
     |> Timex.Duration.from_milliseconds
     |> Timex.Duration.to_clock
   end
