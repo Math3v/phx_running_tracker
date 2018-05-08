@@ -9,6 +9,7 @@ defmodule PhxRunningTracker.Accounts.RunLog do
     field :duration, :integer
     field :note, :string
     field :on_date, :date
+    # TODO: Use virtual fields
 
     timestamps()
   end
