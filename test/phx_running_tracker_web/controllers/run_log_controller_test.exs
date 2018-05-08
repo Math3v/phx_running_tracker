@@ -3,9 +3,9 @@ defmodule PhxRunningTrackerWeb.RunLogControllerTest do
 
   alias PhxRunningTracker.Accounts
 
-  @create_attrs %{at_time: ~T[14:00:00.000000], distance: "120.5", duration: 42, note: "some note", on_date: ~D[2010-04-17]}
-  @update_attrs %{at_time: ~T[15:01:01.000000], distance: "456.7", duration: 43, note: "some updated note", on_date: ~D[2011-05-18]}
-  @invalid_attrs %{at_time: nil, distance: nil, duration: nil, note: nil, on_date: nil}
+  @create_attrs %{at_time: ~T[14:00:00.000000], distance: "120.5", hours: "1", minutes: "15", seconds: "33", note: "some note", on_date: ~D[2010-04-17]}
+  @update_attrs %{at_time: ~T[15:01:01.000000], distance: "456.7", hours: "2", minutes: "20", seconds: "45", note: "some updated note", on_date: ~D[2011-05-18]}
+  @invalid_attrs %{at_time: nil, distance: nil, hours: nil, minutes: nil, seconds: nil, note: nil, on_date: nil}
 
   def fixture(:run_log) do
     {:ok, run_log} = Accounts.create_run_log(@create_attrs)
