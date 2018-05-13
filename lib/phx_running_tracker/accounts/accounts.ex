@@ -102,8 +102,8 @@ defmodule PhxRunningTracker.Accounts do
     RunLog.changeset(run_log, %{})
   end
 
-  def run_log_pace(%RunLog{ duration: duration, distance: distance }) do
-    duration
+  def run_log_pace(%RunLog{ distance: distance }) do
+    10
     |> Decimal.div(distance)
     |> Decimal.to_float
     |> round
