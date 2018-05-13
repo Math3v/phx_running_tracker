@@ -6,9 +6,11 @@ defmodule PhxRunningTracker.Accounts.RunLog do
   schema "run_logs" do
     field :at_time, :time
     field :distance, :decimal
-    field :duration, :integer
     field :note, :string
     field :on_date, :date
+    field :hours, :integer
+    field :minutes, :integer
+    field :seconds, :integer
 
     timestamps()
   end
@@ -16,7 +18,7 @@ defmodule PhxRunningTracker.Accounts.RunLog do
   @doc false
   def changeset(run_log, attrs) do
     run_log
-    |> cast(attrs, [:distance, :on_date, :at_time, :duration, :note])
-    |> validate_required([:distance, :on_date, :at_time, :duration, :note])
+    |> cast(attrs, [:distance, :on_date, :at_time, :note, :hours, :minutes, :seconds])
+    |> validate_required([:distance, :on_date, :at_time, :note, :hours, :minutes, :seconds])
   end
 end

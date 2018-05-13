@@ -18,7 +18,6 @@
       <td><%= run_log.distance %></td>
       <td><%= run_log.on_date %></td>
       <td><%= run_log.at_time %></td>
-      <td><%= run_log.duration %></td>
       <td><%= run_log.note %></td>
 
       <td class="text-right">
