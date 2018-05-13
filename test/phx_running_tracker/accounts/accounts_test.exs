@@ -74,14 +74,12 @@ defmodule PhxRunningTracker.AccountsTest do
       assert %Ecto.Changeset{} = Accounts.change_run_log(run_log)
     end
 
-    @tag :skip
     test "computes basic run_log pace" do
       run_log = run_log_fixture(%{ distance: "10.0", hours: "2", minutes: "0", seconds: "0" })
       pace = Accounts.run_log_pace(run_log)
       assert pace == {0, 12, 0, 0}
     end
 
-    @tag :skip
     test "computes complex run_log pace" do
       run_log = run_log_fixture(%{ distance: "10.0", hours: "2", minutes: "18", seconds: "0" })
       pace = Accounts.run_log_pace(run_log)

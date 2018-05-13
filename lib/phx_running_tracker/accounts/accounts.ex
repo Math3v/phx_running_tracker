@@ -102,8 +102,11 @@ defmodule PhxRunningTracker.Accounts do
     RunLog.changeset(run_log, %{})
   end
 
-  def run_log_pace(%RunLog{ distance: distance }) do
-    10
+  def run_log_pace(%RunLog{ distance: distance, hours: hours, minutes: minutes, seconds: seconds }) do
+    {hours, minutes, seconds, 0}
+    |> Timex.Duration.from_clock()
+    |> Timex.Duration.to_milliseconds
+    |> Decimal.from_float
     |> Decimal.div(distance)
     |> Decimal.to_float
     |> round
