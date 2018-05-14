@@ -1,10 +1,10 @@
-defmodule PhxRunningTracker.AccountsTest do
+defmodule PhxRunningTracker.RunningTest do
   use PhxRunningTracker.DataCase
 
-  alias PhxRunningTracker.Accounts
+  alias PhxRunningTracker.Running
 
   describe "run_logs" do
-    alias PhxRunningTracker.Accounts.RunLog
+    alias PhxRunningTracker.Running.RunLog
 
     @valid_attrs %{at_time: ~T[14:00:00.000000], distance: "120.5", hours: "2", minutes: "18", seconds: "34", note: "some note", on_date: ~D[2010-04-17]}
     @update_attrs %{at_time: ~T[15:01:01.000000], distance: "456.7", hours: "2", minutes: "20", seconds: "44", note: "some updated note", on_date: ~D[2011-05-18]}
@@ -14,23 +14,23 @@ defmodule PhxRunningTracker.AccountsTest do
       {:ok, run_log} =
         attrs
         |> Enum.into(@valid_attrs)
-        |> Accounts.create_run_log()
+        |> Running.create_run_log()
 
       run_log
     end
 
     test "list_run_logs/0 returns all run_logs" do
       run_log = run_log_fixture()
-      assert Accounts.list_run_logs() == [run_log]
+      assert Running.list_run_logs() == [run_log]
     end
 
     test "get_run_log!/1 returns the run_log with given id" do
       run_log = run_log_fixture()
-      assert Accounts.get_run_log!(run_log.id) == run_log
+      assert Running.get_run_log!(run_log.id) == run_log
     end
 
     test "create_run_log/1 with valid data creates a run_log" do
-      assert {:ok, %RunLog{} = run_log} = Accounts.create_run_log(@valid_attrs)
+      assert {:ok, %RunLog{} = run_log} = Running.create_run_log(@valid_attrs)
       assert run_log.at_time == ~T[14:00:00.000000]
       assert run_log.distance == Decimal.new("120.5")
       assert run_log.note == "some note"
@@ -41,12 +41,12 @@ defmodule PhxRunningTracker.AccountsTest do
     end
 
     test "create_run_log/1 with invalid data returns error changeset" do
-      assert {:error, %Ecto.Changeset{}} = Accounts.create_run_log(@invalid_attrs)
+      assert {:error, %Ecto.Changeset{}} = Running.create_run_log(@invalid_attrs)
     end
 
     test "update_run_log/2 with valid data updates the run_log" do
       run_log = run_log_fixture()
-      assert {:ok, run_log} = Accounts.update_run_log(run_log, @update_attrs)
+      assert {:ok, run_log} = Running.update_run_log(run_log, @update_attrs)
       assert %RunLog{} = run_log
       assert run_log.at_time == ~T[15:01:01.000000]
       assert run_log.distance == Decimal.new("456.7")
@@ -59,30 +59,30 @@ defmodule PhxRunningTracker.AccountsTest do
 
     test "update_run_log/2 with invalid data returns error changeset" do
       run_log = run_log_fixture()
-      assert {:error, %Ecto.Changeset{}} = Accounts.update_run_log(run_log, @invalid_attrs)
-      assert run_log == Accounts.get_run_log!(run_log.id)
+      assert {:error, %Ecto.Changeset{}} = Running.update_run_log(run_log, @invalid_attrs)
+      assert run_log == Running.get_run_log!(run_log.id)
     end
 
     test "delete_run_log/1 deletes the run_log" do
       run_log = run_log_fixture()
-      assert {:ok, %RunLog{}} = Accounts.delete_run_log(run_log)
-      assert_raise Ecto.NoResultsError, fn -> Accounts.get_run_log!(run_log.id) end
+      assert {:ok, %RunLog{}} = Running.delete_run_log(run_log)
+      assert_raise Ecto.NoResultsError, fn -> Running.get_run_log!(run_log.id) end
     end
 
     test "change_run_log/1 returns a run_log changeset" do
       run_log = run_log_fixture()
-      assert %Ecto.Changeset{} = Accounts.change_run_log(run_log)
+      assert %Ecto.Changeset{} = Running.change_run_log(run_log)
     end
 
     test "computes basic run_log pace" do
       run_log = run_log_fixture(%{ distance: "10.0", hours: "2", minutes: "0", seconds: "0" })
-      pace = Accounts.run_log_pace(run_log)
+      pace = Running.run_log_pace(run_log)
       assert pace == {0, 12, 0, 0}
     end
 
     test "computes complex run_log pace" do
       run_log = run_log_fixture(%{ distance: "10.0", hours: "2", minutes: "18", seconds: "0" })
-      pace = Accounts.run_log_pace(run_log)
+      pace = Running.run_log_pace(run_log)
       assert pace == {0, 13, 48, 0}
     end
   end
