@@ -1,4 +1,4 @@
-defmodule PhxRunningTracker.Accounts.RunLog do
+defmodule PhxRunningTracker.Running.RunLog do
   use Ecto.Schema
   import Ecto.Changeset
 

@@ -1,12 +1,12 @@
-defmodule PhxRunningTracker.Accounts do
+defmodule PhxRunningTracker.Running do
   @moduledoc """
-  The Accounts context.
+  The Running context.
   """
 
   import Ecto.Query, warn: false
   alias PhxRunningTracker.Repo
 
-  alias PhxRunningTracker.Accounts.RunLog
+  alias PhxRunningTracker.Running.RunLog
 
   @doc """
   Returns the list of run_logs.
