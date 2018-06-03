@@ -1,8 +1,11 @@
 defmodule PhxRunningTrackerWeb.UserController do
+  import PhxRunningTrackerWeb.Auth, only: [authenticate: 2]
   use PhxRunningTrackerWeb, :controller
 
   alias PhxRunningTracker.Accounts
   alias PhxRunningTracker.Accounts.User
+
+  plug :authenticate when action in [:index]
 
   def index(conn, _params) do
     users = Accounts.list_users()
