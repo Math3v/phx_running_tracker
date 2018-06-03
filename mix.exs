@@ -42,7 +42,9 @@ defmodule PhxRunningTracker.Mixfile do
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},
       {:dialyxir, "~> 0.5", only: [:dev, :test], runtime: false},
-      {:timex, "~> 3.0"}
+      {:timex, "~> 3.0"},
+      {:comeonin, "~> 4.1"},
+      {:bcrypt_elixir, "~> 1.0"}
     ]
   end
 
