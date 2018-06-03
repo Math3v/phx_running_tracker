@@ -19,6 +19,10 @@ defmodule PhxRunningTracker.AccountsTest do
       user
     end
 
+    def nullify_credential(user) do
+      %{user | credential: nil}
+    end
+
     test "list_users/0 returns all users" do
       user = user_fixture()
       assert Accounts.list_users() == [user]
@@ -26,7 +30,7 @@ defmodule PhxRunningTracker.AccountsTest do
 
     test "get_user!/1 returns the user with given id" do
       user = user_fixture()
-      assert Accounts.get_user!(user.id) == user
+      assert Accounts.get_user!(user.id) == user |> nullify_credential
     end
 
     test "create_user/1 with valid data creates a user" do
@@ -50,7 +54,7 @@ defmodule PhxRunningTracker.AccountsTest do
     test "update_user/2 with invalid data returns error changeset" do
       user = user_fixture()
       assert {:error, %Ecto.Changeset{}} = Accounts.update_user(user, @invalid_attrs)
-      assert user == Accounts.get_user!(user.id)
+      assert user |> nullify_credential == Accounts.get_user!(user.id)
     end
 
     test "delete_user/1 deletes the user" do
