@@ -18,6 +18,7 @@ defmodule PhxRunningTrackerWeb.Router do
 
     get "/", PageController, :index
     resources "/run_logs", RunLogController
+    resources "/users", UserController
   end
 
   # Other scopes may use custom stacks.
