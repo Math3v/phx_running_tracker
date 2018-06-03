@@ -63,6 +63,15 @@ defmodule PhxRunningTracker.AccountsTest do
       user = user_fixture()
       assert %Ecto.Changeset{} = Accounts.change_user(user)
     end
+
+    test "register_user/1 creates a user and credential" do
+      {:ok, user} = @valid_attrs
+      |> Map.merge(%{credential: %{email: "hello@example.com", password: "Password"}})
+      |> Accounts.register_user()
+
+      assert user.name == "some name"
+      assert user.credential.email == "hello@example.com"
+    end
   end
 
   describe "credentials" do
