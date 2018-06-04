@@ -1,4 +1,5 @@
 defmodule PhxRunningTrackerWeb.UserControllerTest do
+  import Plug.Test
   use PhxRunningTrackerWeb.ConnCase
 
   alias PhxRunningTracker.Accounts
@@ -14,6 +15,9 @@ defmodule PhxRunningTrackerWeb.UserControllerTest do
 
   describe "index" do
     test "lists all users", %{conn: conn} do
+      user = fixture(:user)
+      conn = conn
+      |> init_test_session(user_id: user.id)
       conn = get conn, user_path(conn, :index)
       assert html_response(conn, 200) =~ "Listing Users"
     end
@@ -66,18 +70,6 @@ defmodule PhxRunningTrackerWeb.UserControllerTest do
     test "renders errors when data is invalid", %{conn: conn, user: user} do
       conn = put conn, user_path(conn, :update, user), user: @invalid_attrs
       assert html_response(conn, 200) =~ "Edit User"
-    end
-  end
-
-  describe "delete user" do
-    setup [:create_user]
-
-    test "deletes chosen user", %{conn: conn, user: user} do
-      conn = delete conn, user_path(conn, :delete, user)
-      assert redirected_to(conn) == user_path(conn, :index)
-      assert_error_sent 404, fn ->
-        get conn, user_path(conn, :show, user)
-      end
     end
   end
 
