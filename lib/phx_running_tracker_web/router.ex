@@ -7,6 +7,7 @@ defmodule PhxRunningTrackerWeb.Router do
     plug :fetch_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug PhxRunningTrackerWeb.Auth
   end
 
   pipeline :api do
@@ -18,6 +19,7 @@ defmodule PhxRunningTrackerWeb.Router do
 
     get "/", PageController, :index
     resources "/run_logs", RunLogController
+    resources "/users", UserController, except: [:delete]
   end
 
   # Other scopes may use custom stacks.

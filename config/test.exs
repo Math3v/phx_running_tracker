@@ -17,3 +17,7 @@ config :phx_running_tracker, PhxRunningTracker.Repo,
   database: "phx_running_tracker_test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
+
+# Reduce the number of Bcrypt hashing rounds
+# This is not secure, applicable to test only!
+config :bcrypt_elixir, log_rounds: 4
